@@ -1,58 +1,55 @@
-# Salesforce DX Project
+# testscope: run only the Apex tests a change can affect
 
-Salesforce DX is a development approach that brings source-driven development, team collaboration, and continuous integration to the Salesforce Platform. Instead of working directly in an org through a web browser, you work with metadata as source files in a local DX project, track changes in version control, and deploy through automated processes.
+**Agentia™ Headless Hackathon 2026 submission**
 
-This project template gets you started with the tools and structure you need to build Salesforce applications using source control, scratch orgs, and the Salesforce CLI.
+## Problem
+Copado Agentia helps with deployments inside Salesforce, but the pipeline still runs the whole suite
+(`RunLocalTests`) on every change. In the benchmark org (apex-recipes: 142 components, 69 test
+classes) about 130 tests already fail, so a new regression is easy to miss and every run is slow.
 
-## Prerequisites
+## What it does
+`testscope.py` takes the changed component, walks the dependency graph (who references it,
+transitively) and selects only the test classes that can reach it. It then:
 
-Before you start, make sure you have:
+1. skips test classes that already fail in a recorded baseline (`baseline_failures.txt`), so only *new* failures are reported,
+2. prints a gate verdict (selected tests are enough for the *analysed* dependencies),
+3. exports `AGENTIA_APEX_TEST_CLASSES` for the Agentia CLI, or runs the selected tests directly with `--run`.
 
-- **Salesforce CLI** - Download from [developer.salesforce.com/tools/salesforcecli](https://developer.salesforce.com/tools/salesforcecli). See [Install Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) for details.
-- **VS Code with Salesforce Extension Pack** - See [Installation Instructions](https://developer.salesforce.com/docs/platform/sfvscode-extensions/guide/install.html) for details. Includes the Agentforce Vibes extension.
-- **A development org** - Sign up for a free Developer Edition org [here](https://developer.salesforce.com/signup).
-- **Dev Hub enabled** (optional, required to create scratch orgs) - You can enable Dev Hub in your development org under Setup > Dev Hub.  See [Provide Developers Access to Salesforce DX Tools](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_setup_dx_tools.htm).
+```
+python testscope.py\testscope.py --changed TriggerHandler --baseline-failures baseline_failures.txt --run --target-org devorg2
+```
 
-## Project Structure
+## How it was evaluated
+`benchmark.py` seeds a bug into one class, deploys it, runs testscope's selected tests, runs the full
+`RunLocalTests` suite, compares the two, then restores the original and redeploys it.
+"Caught" = new failing classes (not in the baseline) found by the selected run, out of those found by the full run.
 
-Your DX project follows this structure:
+| # | Class | Bug seeded | Caught | Full suite | Selected | Time saved |
+|---|-------|-----------|--------|-----------|----------|-----------|
+| 1 | TriggerHandler | negated `return` in `isBypassed` | 1/1 | 133.4 s | 28.2 s | 79% |
+| 2 | MetadataTriggerService | `if (Trigger.new != null)` inverted (line 62) | **1/4** | 26.4 s | 25.3 s | 4% |
+| 3 | FormattingRecipes | `return result.getValueAsString();` changed to `return null;` (line 17) | 1/1 | 57.8 s | 8.4 s | 85% |
 
-- **`force-app/main/default/`** - Your metadata source files live in this default package directory. You can configure additional package directories in the `sfdx-project.json` file.
-- **`config/`** - Scratch org definitions and project settings
-- **`scripts/`** - Automation scripts for common tasks
-- **`sfdx-project.json`** - Project manifest that defines package directories, namespace, API version, and other project-level settings
+All three seeded bugs were detected by the selected run, but across the three cases only 3 of the 6 new
+failing classes seen in the full runs were caught. Raw data: `results.csv`. Evidence (diffs, deploy logs,
+full-suite JSON, testscope output): `evidence/`.
 
-See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm).
+## Limitations (please read)
+- **Case 2 missed 3 classes.** `AccountServiceLayer_Tests`, `InboundEmailHandlerRecipes_tests` and `LDVRecipes_Tests` failed in the full run but not in the selected run. The cause is not yet established: either they were not selected (an analysis gap) or they were selected but behaved differently when run alone. `evidence/bug2_testscope_r1.txt` shows which.
+- **Timing is very noisy.** The same full suite took 310.8 s, 133.4 s, 57.8 s and 26.4 s on different runs, so the time-saved column comes from single runs and is indicative only (the 4% in case 2 is within noise). Repeat runs with `python benchmark.py --only 1,2,3 --repeats 3` give medians.
+- **Tiny sample.** Three hand-seeded bugs in one org. This shows the idea works on some cases, not that it is generally accurate.
+- **Static analysis only.** Dynamic Apex, `Type.forName`, metadata-driven triggers and Flow/config references are not analysed.
+- **Baseline blind spot.** A bug inside a class whose tests already fail in the baseline cannot be detected as "new".
+- Org flakiness can look like a "new" failure; rerun to confirm.
 
-## Get Started
+## Setup
+Python 3.9+, Salesforce CLI (`sf`), an authorised org alias, and a `baseline_failures.txt` made from a clean full run.
 
-Ready to start developing? The [Get Started with Salesforce DX](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_get_started_dx.htm) guide walks you through your first project, from creating a scratch org to creating a simple Apex class or LWC to deploying your code to a sandbox.
+## Reproduce
+```
+python benchmark.py --only 1,2,3 --repeats 3
+```
+Run from the folder containing `apex-recipes/`, `testscope.py/` and `baseline_failures.txt`. It restores every seeded bug with `git restore` and redeploys the original.
 
-## Common Salesforce CLI Commands
-
-Here are common CLI commands that you'll use the most:
-
-- `sf org login web`: Authorize an org
-- `sf org open`: Open your org in a browser
-- `sf org create scratch`: Create a scratch org
-- `sf project deploy start`: Deploy metadata to your org
-- `sf project retrieve start`: Retrieve metadata from your org
-- `sf template generate <artifact>`: Scaffold new components, such as Apex classes and triggers, LWC components, Lightning apps, and more
-- `sf apex <command>`: Run Apex tests, run anonymous Apex blocks, and view logs
-- `sf data <command>`: Work with test data
-- `sf alias <command>`: Manage org aliases
-- `sf config <command>`: Configure CLI settings
-
-## Use Agentforce Vibes to Build Lightning Apps
-
-Transform your ideas into custom Lightning apps that extend CRM workflows directly in Lightning Experience. Through natural conversations with Agentforce Vibes, implement custom objects and fields, complex business logic, and dynamic UI components. See [Build a Lightning App Using Agentforce Vibes](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/lexapp-overview.html).
-
-## Additional Resources
-
-- [Agentforce Vibes Developer Guide](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/einstein-overview.html)
-- [Salesforce CLI Installation Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/)
-- [Salesforce CLI Plugin Development Guide](https://developer.salesforce.com/docs/platform/salesforce-cli-plugin/guide/conceptual-overview.html)
-- [Salesforce VS Code Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-
+## Repo layout
+`testscope.py/` (tool) · `benchmark.py` · `baseline_failures.txt` · `results.csv` · `evidence/`
