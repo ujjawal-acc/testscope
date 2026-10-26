@@ -1,0 +1,14 @@
+{
+  "code": 1,
+  "context": "DeployMetadata",
+  "commandName": "DeployMetadata",
+  "data": {
+    "id": "0Afg800000J6wWECAZ"
+  },
+  "message": "Metadata API request failed: Missing message metadata.transfer:Finalizing for locale en_US.",
+  "name": "MetadataTransferError",
+  "status": 1,
+  "stack": "MetadataTransferError: Metadata API request failed: Missing message metadata.transfer:Finalizing for locale en_US.\n    at MetadataApiDeploy.pollStatus (C:\\Program Files\\sf\\client\\node_modules\\@salesforce\\source-deploy-retrieve\\lib\\src\\client\\metadataTransfer.js:72:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async DeployMetadata.run (file:///C:/Program%20Files/sf/client/node_modules/@salesforce/plugin-deploy-retrieve/lib/commands/project/deploy/start.js:210:24)\n    at async DeployMetadata._run (C:\\Program Files\\sf\\client\\node_modules\\@oclif\\core\\lib\\command.js:311:22)\n    at async Config.runCommand (C:\\Program Files\\sf\\client\\node_modules\\@oclif\\core\\lib\\config\\config.js:433:25)\n    at async run (C:\\Program Files\\sf\\client\\node_modules\\@oclif\\core\\lib\\main.js:92:16)\nDUE TO:\nMissingMessageError: Missing message metadata.transfer:Finalizing for locale en_US.\n    at Messages.getMessageWithMap (C:\\Program Files\\sf\\client\\node_modules\\@salesforce\\core\\lib\\messages.js:518:19)\n    at Messages.getMessage (C:\\Program Files\\sf\\client\\node_modules\\@salesforce\\core\\lib\\messages.js:398:21)\n    at DeployProgress.updateProgress (file:///C:/Program%20Files/sf/client/node_modules/@salesforce/plugin-deploy-retrieve/lib/utils/progressBar.js:63:44)\n    at EventEmitter.<anonymous> (file:///C:/Program%20Files/sf/client/node_modules/@salesforce/plugin-deploy-retrieve/lib/utils/progressBar.js:34:45)\n    at EventEmitter.emit (node:events:519:28)\n    at MetadataApiDeploy.poll (C:\\Program Files\\sf\\client\\node_modules\\@salesforce\\source-deploy-retrieve\\lib\\src\\client\\metadataTransfer.js:185:32)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async doPoll (C:\\Program Files\\sf\\client\\node_modules\\@salesforce\\core\\lib\\status\\pollingClient.js:62:26)",
+  "exitCode": 1,
+  "warnings": []
+}

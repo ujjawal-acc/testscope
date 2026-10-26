@@ -1,0 +1,52 @@
+0Afg800000J6zM1CAJ... Succeeded
+
+Deploy Info
+===================================================
+| Key                      Value                    
+| ──────────────────────── ──────────────────────── 
+| checkOnly                false                    
+| completedDate            2026-10-26T16:37:49.000Z 
+| createdBy                005g800000CzM7F          
+| createdByName            ujjawal kumar            
+| createdDate              2026-10-26T16:37:46.000Z 
+| done                     true                     
+| id                       0Afg800000J6zM1CAJ       
+| ignoreWarnings           false                    
+| lastModifiedDate         2026-10-26T16:37:49.000Z 
+| numberComponentErrors    0                        
+| numberComponentsDeployed 1                        
+| numberComponentsTotal    1                        
+| numberFiles              4                        
+| numberTestErrors         0                        
+| numberTestsCompleted     0                        
+| numberTestsTotal         0                        
+| rollbackOnError          true                     
+| runTestsEnabled          false                    
+| startDate                2026-10-26T16:37:47.000Z 
+| status                   Succeeded                
+| success                  true                     
+| zipSize                  3670                     
+
+Deploy Options
+====================================================================================
+| Key              Value                                                             
+| ──────────────── ───────────────────────────────────────────────────────────────── 
+| json             true                                                              
+| dry-run          false                                                             
+| ignore-conflicts false                                                             
+| ignore-errors    false                                                             
+| ignore-warnings  false                                                             
+| target-org       ujjawal.q.kumar.39ce7e23595b@agentforce.com                       
+| api              SOAP                                                              
+| manifest         C:\Users\ujjawal.q.kumar\.sf\manifestCache\0Afg800000J6zM1CAJ.xml 
+| wait             15 minutes                                                        
+| isMdapi          false                                                             
+| job-id           0Afg800000J6zM1CAJ                                                
+
+Deployed Source
+=============================================================================================================================
+| State   Name                   Type      Path                                                                               
+| ─────── ────────────────────── ───────── ────────────────────────────────────────────────────────────────────────────────── 
+| Changed MetadataTriggerService ApexClass force-app\main\default\classes\Trigger Recipes\MetadataTriggerService.cls          
+| Changed MetadataTriggerService ApexClass force-app\main\default\classes\Trigger Recipes\MetadataTriggerService.cls-meta.xml 
+

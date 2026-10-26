@@ -1,0 +1,19 @@
+Scanned 142 components, 69 test classes
+Changed: FormattingRecipes
+Affected components: 2
+Selected tests: FormattingRecipes_Tests
+GATE: selected tests are enough for the analysed dependencies
+Env var:  $env:AGENTIA_APEX_TEST_CLASSES="FormattingRecipes_Tests"
+Analysis time: 0.11s   Report: testscope_report.json
+Run: {
+  "mode": "selected",
+  "test_seconds": 8.3,
+  "total_seconds": 8.4,
+  "tests_ran": 3,
+  "failing_classes": [
+    "FormattingRecipes_Tests"
+  ],
+  "new_failing_classes": [
+    "FormattingRecipes_Tests"
+  ]
+}

@@ -1,0 +1,13 @@
+diff --git a/force-app/main/default/classes/DataWeaveInApex Recipes/FormattingRecipes.cls b/force-app/main/default/classes/DataWeaveInApex Recipes/FormattingRecipes.cls
+index 8bc0990..67e31f7 100644
+--- a/force-app/main/default/classes/DataWeaveInApex Recipes/FormattingRecipes.cls	
++++ b/force-app/main/default/classes/DataWeaveInApex Recipes/FormattingRecipes.cls	
+@@ -14,7 +14,7 @@ public with sharing class FormattingRecipes {
+         DataWeave.Result result = script.execute(
+             new Map<String, Object>{ 'records' => contacts }
+         );
+-        return result.getValueAsString();
++        return null;
+     }
+ 
+     /**

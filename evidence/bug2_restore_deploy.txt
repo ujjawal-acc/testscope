@@ -1,0 +1,79 @@
+{
+  "status": 0,
+  "result": {
+    "checkOnly": false,
+    "completedDate": "2026-10-26T16:38:56.000Z",
+    "createdBy": "005g800000CzM7F",
+    "createdByName": "ujjawal kumar",
+    "createdDate": "2026-10-26T16:38:50.000Z",
+    "details": {
+      "componentSuccesses": [
+        {
+          "changed": true,
+          "componentType": "ApexClass",
+          "created": false,
+          "createdDate": "2026-10-26T16:38:55.000Z",
+          "deleted": false,
+          "fileName": "classes/MetadataTriggerService.cls",
+          "fullName": "MetadataTriggerService",
+          "id": "01pg800000EUZ7xAAH",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2026-10-26T16:38:56.000Z",
+          "deleted": false,
+          "fileName": "package.xml",
+          "fullName": "package.xml",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      },
+      "componentFailures": []
+    },
+    "done": true,
+    "id": "0Afg800000J5JqICAV",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2026-10-26T16:38:56.000Z",
+    "numberComponentErrors": 0,
+    "numberComponentsDeployed": 1,
+    "numberComponentsTotal": 1,
+    "numberFiles": "4",
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2026-10-26T16:38:55.000Z",
+    "status": "Succeeded",
+    "success": true,
+    "zipSize": "3667",
+    "files": [
+      {
+        "fullName": "MetadataTriggerService",
+        "type": "ApexClass",
+        "state": "Changed",
+        "filePath": "C:\\Users\\ujjawal.q.kumar\\Desktop\\ALL\\Develpoer Org\\Dev org\\apex-recipes\\force-app\\main\\default\\classes\\Trigger Recipes\\MetadataTriggerService.cls"
+      },
+      {
+        "fullName": "MetadataTriggerService",
+        "type": "ApexClass",
+        "state": "Changed",
+        "filePath": "C:\\Users\\ujjawal.q.kumar\\Desktop\\ALL\\Develpoer Org\\Dev org\\apex-recipes\\force-app\\main\\default\\classes\\Trigger Recipes\\MetadataTriggerService.cls-meta.xml"
+      }
+    ]
+  },
+  "warnings": []
+}

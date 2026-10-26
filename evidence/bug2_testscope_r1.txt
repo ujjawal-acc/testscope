@@ -1,0 +1,19 @@
+Scanned 142 components, 69 test classes
+Changed: MetadataTriggerService
+Affected components: 5
+Selected tests: MetadataTriggerHandler_Tests, MetadataTriggerService_Tests
+GATE: selected tests are enough for the analysed dependencies
+Env var:  $env:AGENTIA_APEX_TEST_CLASSES="MetadataTriggerHandler_Tests,MetadataTriggerService_Tests"
+Analysis time: 2.85s   Report: testscope_report.json
+Run: {
+  "mode": "selected",
+  "test_seconds": 22.4,
+  "total_seconds": 25.3,
+  "tests_ran": 10,
+  "failing_classes": [
+    "MetadataTriggerService_Tests"
+  ],
+  "new_failing_classes": [
+    "MetadataTriggerService_Tests"
+  ]
+}

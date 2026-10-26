@@ -1,0 +1,13 @@
+diff --git a/force-app/main/default/classes/Trigger Recipes/MetadataTriggerService.cls b/force-app/main/default/classes/Trigger Recipes/MetadataTriggerService.cls
+index c4f230d..f568cbf 100644
+--- a/force-app/main/default/classes/Trigger Recipes/MetadataTriggerService.cls	
++++ b/force-app/main/default/classes/Trigger Recipes/MetadataTriggerService.cls	
+@@ -59,7 +59,7 @@ public with sharing class MetadataTriggerService {
+      * @return The API name of the sObject type found in Trigger.new or Trigger.old
+      */
+     public static String getSObjectType() {
+-        if (Trigger.new != null) {
++        if (!(Trigger.new != null)) {
+             return Trigger.new[0].getSObjectType().getDescribe().getName();
+         } else if (Trigger.old != null) {
+             return Trigger.old[0].getSObjectType().getDescribe().getName();

@@ -1,0 +1,34 @@
+{
+  "components_scanned": 142,
+  "test_classes_found": 69,
+  "changed": [
+    "MetadataTriggerService"
+  ],
+  "affected_components": [
+    "AccountTrigger",
+    "MetadataTriggerHandler",
+    "MetadataTriggerHandler_Tests",
+    "MetadataTriggerService",
+    "MetadataTriggerService_Tests"
+  ],
+  "selected_tests": [
+    "MetadataTriggerHandler_Tests",
+    "MetadataTriggerService_Tests"
+  ],
+  "skipped_already_failing": [],
+  "full_suite_fallback": false,
+  "fallback_reasons": [],
+  "analysis_seconds": 2.85,
+  "run": {
+    "mode": "selected",
+    "test_seconds": 22.4,
+    "total_seconds": 25.3,
+    "tests_ran": 10,
+    "failing_classes": [
+      "MetadataTriggerService_Tests"
+    ],
+    "new_failing_classes": [
+      "MetadataTriggerService_Tests"
+    ]
+  }
+}
