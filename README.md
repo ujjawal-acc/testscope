@@ -2,6 +2,7 @@
 
 **Agentia™ Headless Hackathon 2026 submission**
 
+**🏆 [Participant, Copado Agentia™ Headless Virtual Hackathon 2026 (view certificate)](Agentia2026_Participation_Ujjawal_Kumar.pdf) Certificate provided only to valid submission**
 ## Problem
 Copado Agentia helps with deployments inside Salesforce, but the pipeline still runs the whole suite
 (`RunLocalTests`) on every change. In the benchmark org (apex-recipes: 142 components, 69 test
